@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <link rel="shortcut icon" type="image/jpeg" href="/favicon.jpeg">
-
   <title>MSP-Typescript</title>
 
   <!-- Javascript -->
@@ -19,11 +18,69 @@
   <link rel="stylesheet" type="text/css" href="/css/animate.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 
+  <style>
+    .segment p {
+      font-size: 1em !important;
+    }
+  </style>
   <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-  <script src="./lib/firebase/firebase_init.js"></script>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDAFDyXR3edDHi7ISjHV42lvgQZUSGj3wU",
+      authDomain: "mentoringday-72ef2.firebaseapp.com",
+      databaseURL: "https://mentoringday-72ef2.firebaseio.com",
+      projectId: "mentoringday-72ef2",
+      storageBucket: "mentoringday-72ef2.appspot.com",
+      messagingSenderId: "743950312812"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script>
+    function checkApply(ref){
+
+      ref.once('value', function(snapshot) {
+        var snapVal = snapshot.val();
+        var len = Object.keys(snapVal).length;
+        var mCount = 0;
+        var nCount = 0;
+        console.log(snapVal);
+        console.log(snapVal.length)
+        $('#allCount').text("참가자: " +len + " 명");
+
+        for(var key in snapVal){
+          if (snapVal.hasOwnProperty(key)) {
+              console.log("key/value", key, snapVal[key]);
+              var segment = $('<div/>').addClass('ui raised segment');
+
+              var name = $('<h4/>').addClass('ui header').text(snapVal[key]['name']);
+              var email = $('<p/>').text(snapVal[key]['email']);
+              var phone = $('<p/>').text(snapVal[key]['phone']);
+              var grade = $('<p/>').text(snapVal[key]['grade']);
+              var school = $('<p/>').text(snapVal[key]['highSchool']);
+              segment.append(name).append(email).append(phone).append(grade).append(school);
+              $('#mainContainer').append(segment);
+          }
+        }
+
+        // $('#allCount').text(snapshot.val().length);
+
+        // snapshot.forEach(function(childSnapshot) {
+        //   var childKey = childSnapshot.key();
+        //   var childData = childSnapshot.val();
+        //   console.log(childKey, childData);
+        // });
+      });
+    }
+  </script>
 
   <script>
     $(document).ready(function() {
+      var ref = firebase.database().ref().child('apply');
+      checkApply(ref);
+
       // fix menu when passed
       $('.masthead')
         .visibility({
@@ -93,44 +150,10 @@
 
 
     <div class="ui vertical stripe segment">
-      <div class="ui text container">
-        <h2 class="ui header">
-          <i class="calendar icon"></i>
-          <div class="content">
-            일시
-            <div class="sub header">2017년</div>
-          </div>
-        </h2>
-
-        <h2 class="ui header">
-          <i class="marker icon"></i>
-          <div class="content">
-            강연 장소
-            <div class="sub header">한양대학교 서울캠퍼스</div>
-          </div>
-        </h2>
-        <br />
-        <!-- Daum MAP -->
-        <div id="map" style="width:100%;height:400px;"></div>
-      	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=1bca10b2e0a90324e23719b1762ab9ab"></script>
-        <script>
-      		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-      		    mapOption = {
-      		        center: new daum.maps.LatLng(37.5572321, 127.04532189999998), // 지도의 중심좌표
-      		        level: 3, // 지도의 확대 레벨
-      		        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
-      		    };
-
-      		// 지도를 생성한다
-      		var map = new daum.maps.Map(mapContainer, mapOption);
-
-      		// 지도에 마커를 생성하고 표시한다
-      		var marker = new daum.maps.Marker({
-      		    position: new daum.maps.LatLng(37.5572321, 127.04532189999998), // 마커의 좌표
-      		    map: map // 마커를 표시할 지도 객체
-      		});
-      	</script>
-
+      <div class="ui text container" id="mainContainer">
+        <h1 class="ui header" id="allCount"></h1>
+        <h5 class="ui header" id="mCount"></h5>
+        <h5 class="ui header" id="nCount"></h5>
 
       </div>
     </div>
