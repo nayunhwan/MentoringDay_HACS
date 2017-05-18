@@ -1,8 +1,159 @@
 <!Doctype html>
 <html>
 <head>
+  <!-- Primary Color #3784cc -->
+
   <meta charset="utf-8" />
-  <title>HACS 멘토링데이</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="shortcut icon" type="image/jpeg" href="/favicon.jpeg">
+
+  <title>MSP-Typescript</title>
+
+  <!-- Javascript -->
+  <script src="/lib/jQuery/jquery-3.2.1.js"></script>
+  <script src="/lib/Semantic/semantic.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="/lib/Semantic/semantic.css">
+  <link rel="stylesheet" type="text/css" href="/css/animate.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  <script src="./lib/firebase/firebase_init.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        });
+
+
+
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar').sidebar('attach events', '.toc.item');
+    });
+  </script>
 </head>
-<h1>Mentoring Day</h1>
+<body>
+
+  <!-- Following Menu -->
+  <div class="ui large top fixed hidden menu">
+    <div class="ui container">
+      <a class="active item" href="/">소개</a>
+      <a class="item apply" href="/apply.html">신청</a>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="ui vertical inverted sidebar menu">
+    <a class="active item" href="/">소개</a>
+    <a class="item apply" href="/apply.html">신청</a>
+  </div>
+
+
+  <!-- Page Contents -->
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment" style="background:#003c71 !important">
+
+      <div class="ui container" >
+        <div class="ui large secondary inverted pointing menu" style="border-color: transparent;">
+          <a class="toc item">
+            <i class="sidebar icon"></i>
+          </a>
+          <a class="active item" href="/">소개</a>
+          <a class="item apply" href="/apply.html">신청</a>
+        </div>
+      </div>
+
+      <div class="ui text container" >
+
+        <h1 class="ui inverted header">
+          <img src="./img/hacs_logo.png" width="10%"/>
+          <br />
+          <br />
+          HACS 멘토링데이
+        </h1>
+        <h2>한양대학교 선배들이 들려주는 진솔한 학과 이야기</h2>
+        <br />
+        <br />
+        <a class="ui huge basic inverted button" href="/apply.html">신청하기 <i class="right arrow icon"></i></a>
+      </div>
+
+    </div>
+
+
+    <div class="ui vertical stripe segment">
+      <div class="ui text container">
+        <h2 class="ui header">
+          <i class="calendar icon"></i>
+          <div class="content">
+            일시
+            <div class="sub header">2017년</div>
+          </div>
+        </h2>
+
+        <h2 class="ui header">
+          <i class="marker icon"></i>
+          <div class="content">
+            강연 장소
+            <div class="sub header">한양대학교 서울캠퍼스</div>
+          </div>
+        </h2>
+        <br />
+        <!-- Daum MAP -->
+        <div id="map" style="width:100%;height:400px;"></div>
+      	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=1bca10b2e0a90324e23719b1762ab9ab"></script>
+        <script>
+      		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      		    mapOption = {
+      		        center: new daum.maps.LatLng(37.5572321, 127.04532189999998), // 지도의 중심좌표
+      		        level: 3, // 지도의 확대 레벨
+      		        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
+      		    };
+
+      		// 지도를 생성한다
+      		var map = new daum.maps.Map(mapContainer, mapOption);
+
+      		// 지도에 마커를 생성하고 표시한다
+      		var marker = new daum.maps.Marker({
+      		    position: new daum.maps.LatLng(37.5572321, 127.04532189999998), // 마커의 좌표
+      		    map: map // 마커를 표시할 지도 객체
+      		});
+      	</script>
+
+
+      </div>
+    </div>
+
+
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+          <div class="three wide column">
+            <h4 class="ui inverted header">Menu</h4>
+            <div class="ui inverted horizontal ink list">
+              <a href="#" class="item">소개</a>
+              <a href="#" class="item">신청</a>
+            </div>
+          </div>
+          <div class="ten wide column">
+            <h4 class="ui inverted header">Infomation</h4>
+            <p>본 행사는 한양대학교 인재모임 HACS에서 진행하는 행사로 한양대학교에서 주최하는 공식적인 행사는 아닙니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
 </html>

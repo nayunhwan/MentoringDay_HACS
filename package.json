@@ -1,0 +1,19 @@
+{
+  "name": "metoringday",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nayunhwan/MentoringDay_HACS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nayunhwan/MentoringDay_HACS/issues"
+  },
+  "homepage": "https://github.com/nayunhwan/MentoringDay_HACS#readme"
+}
